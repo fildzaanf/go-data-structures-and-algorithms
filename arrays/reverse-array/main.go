@@ -3,15 +3,9 @@ package main
 import "fmt"
 
 func ReverseArray(array []int) []int {
-	left := 0
-	right := len(array) - 1
-
-	for left < right {
-		array[left], array[right] = array[right], array[left]
-		left++
-		right--
+	for i, j := 0, len(array)-1; i < j; i, j = i+1, j-1 {
+		array[i], array[j] = array[j], array[i]
 	}
-
 	return array
 }
 
