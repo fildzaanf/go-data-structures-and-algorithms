@@ -43,6 +43,18 @@ func PrimeFactors(n int) []int {
 	return factors
 }
 
+func EuclideanAlgorithms(a, b int32) int32{
+	for b != 0 {
+		a, b = b, a % b
+	}
+
+	return a
+}
+
+func LeastCommonMultipleV2(a, b int32) int32{
+	return (a*b)/EuclideanAlgorithms(a, b) 
+}
+
 func main() {
 	a := 10
 	b := 5

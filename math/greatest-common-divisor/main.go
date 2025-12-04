@@ -50,6 +50,14 @@ func FindCommonFactors(a, b []int) []int {
 	return common
 }
 
+func EuclideanAlgorithms(a, b int32) int32{
+	for b != 0 {
+		a, b = b, a%b
+	}
+
+	return a
+}
+
 func main() {
 	a := 12
 	b := 18
