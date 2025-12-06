@@ -2,30 +2,28 @@ package main
 
 import "fmt"
 
-func OneTransaction(prices []int) int {
+func MaxOneTransaction(prices []int) int {
 	if len(prices) == 0 {
 		return 0
 	}
 
-	minPrice  := prices[0] 
-	maxProfit := 0 
+	buy := prices[0]
+	sell := 0
 
-	for _, price := range prices{
-		if price < minPrice {
-			minPrice = price
+	for _, price := range prices {
+		if price < buy {
+			buy = price
 		}
 
-		profit := price - minPrice
-
-		if profit > maxProfit {
-			maxProfit = profit
+		if price - buy > sell {
+			sell = price - buy
 		}
 	}
 
-	return maxProfit
+	return sell
 }
 
-func TwoTransaction(prices []int) int{
+func MaxTwoTransaction(prices []int) int{
 	buy1 := 999999
 	buy2 := 999999
 	sell1 := 0
@@ -54,8 +52,21 @@ func TwoTransaction(prices []int) int{
 }
 
 func MultipleTransaction(prices []int) int{
-	return 0
+	if len(prices) == 0 {
+		return 0
+	}
 
+	total := 0
+
+	for i := 1; i < len(prices); i++{
+		if prices[i] > prices[i - 1] {
+			buy := prices[i-1]
+			sell := prices[i]
+			total += sell - buy
+		}
+	}
+
+	return total
 }
 
 func TransactionWithFee(prices []int) int{
@@ -63,13 +74,13 @@ func TransactionWithFee(prices []int) int{
 }
 
 func main() {
-	fmt.Println(OneTransaction([]int{7, 10, 1, 3, 6, 9, 2})) // 8
-	fmt.Println(OneTransaction([]int{7, 6, 4, 3, 1}))        // 0
-	fmt.Println(OneTransaction([]int{1, 3, 6, 9, 11})) 		 // 10
+	fmt.Println(MaxOneTransaction([]int{7, 10, 1, 3, 6, 9, 2})) // 8
+	fmt.Println(MaxOneTransaction([]int{7, 6, 4, 3, 1}))        // 0
+	fmt.Println(MaxOneTransaction([]int{1, 3, 6, 9, 11})) 		 // 10
 
-	fmt.Println(TwoTransaction([]int{10, 22, 5, 75, 65, 80})) 	   // 87
-	fmt.Println(TwoTransaction([]int{100, 30, 15, 10, 8, 25, 80})) // 72      
-	fmt.Println(TwoTransaction([]int{90, 80, 70, 60, 50}))         // 0
+	fmt.Println(MaxTwoTransaction([]int{10, 22, 5, 75, 65, 80})) 	   // 87
+	fmt.Println(MaxTwoTransaction([]int{100, 30, 15, 10, 8, 25, 80})) // 72      
+	fmt.Println(MaxTwoTransaction([]int{90, 80, 70, 60, 50}))         // 0
 	
 	
 }
